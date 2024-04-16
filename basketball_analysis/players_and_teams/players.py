@@ -2,6 +2,12 @@
 
 import pandas as pd
 import numpy as np
+from basketball_analysis.stat_calcs.shooting_stats import (
+    effective_field_goal_percentage,
+    field_goal_percentage,
+    true_shooting_percentage,
+    points_per_possession,
+)
 
 
 class PlayerSingleSeason:
@@ -12,9 +18,7 @@ class PlayerSingleSeason:
         name (str): The name of the player.
     """
 
-    def __init__(
-        self, box_score_data, player_name
-    ):
+    def __init__(self, box_score_data, player_name):
         self.name = None
         self.player_id = None
         self.position = None
@@ -43,9 +47,9 @@ class PlayerSingleSeason:
         self.team_scores = None
 
         df = box_score_data
-     
+
         player_data = df[
-            df['athlete_display_name'] == player_name
+            df["athlete_display_name"] == player_name
         ]  # assuming the column for player names is 'name'
         if not player_data.empty:
             self.name = player_data.iloc[0]["athlete_display_name"]
@@ -82,3 +86,44 @@ class PlayerSingleSeason:
             self.team_scores = np.array(player_data["team_score"])
         else:
             raise ValueError("Player not found in the dataset")
+
+    def get_true_shooting_percentage(self):
+        """
+        Calculate the true shooting percentage (TS%) for the player.
+
+        TS% = PTS / (2 * (FGA + 0.44 * FTA))
+
+        Returns:
+        float: The true shooting percentage for the player.
+        """
+        return true_shooting_percentage(
+            self.points, self.field_goals_attempted, self.free_throws_attempted
+        )
+
+    def get_effective_field_goal_percentage(self):
+        """
+        Calculate the effective field goal percentage (eFG%) for the player.
+        """
+
+        return effective_field_goal_percentage(
+            self.field_goals_made,
+            self.field_goals_attempted,
+            self.three_point_field_goals_made,
+        )
+
+    def get_field_goal_percentage(self):
+        """
+        Calculate the field goal percentage (FG%) for the player.
+        """
+        return field_goal_percentage(self.field_goals_made, self.field_goals_attempted)
+
+    def get_points_per_possession(self):
+        """
+        Calculate the points per possession (PPP) for the player.
+        """
+        return points_per_possession(
+            self.points,
+            self.field_goals_attempted,
+            self.free_throws_attempted,
+            self.turnovers,
+        )

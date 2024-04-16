@@ -74,3 +74,19 @@ def points_per_possession(pts, fga, fta, tov):
 
 
     return pts / poss
+
+
+def relative_true_shooting_percentage(player_ts, league_ts):
+    """
+    Calculate the relative true shooting percentage (TS%) for a player compared to the league average.
+
+    Rel TS% = (Player TS% - League TS%) / League TS%
+
+    Parameters:
+    player_ts (float): The true shooting percentage for the player.
+    league_ts (float): The true shooting percentage for the league.
+
+    Returns:
+    float: The relative true shooting percentage for the player.
+    """
+    return (player_ts - league_ts) / league_ts
