@@ -46,7 +46,7 @@ class PlayerSingleSeason:
         self.wins_losses = None
         self.team_scores = None
 
-        df = box_score_data
+        df = box_score_data.fillna(0)
 
         player_data = df[
             df["athlete_display_name"] == player_name
@@ -96,8 +96,12 @@ class PlayerSingleSeason:
         Returns:
         float: The true shooting percentage for the player.
         """
+
+        points_sum = np.nan_to_num(self.points, 0).sum()
+        fga_sum = np.nan_to_num(self.field_goals_attempted, 0).sum()
+        fta_sum = np.nan_to_num(self.free_throws_attempted, 0).sum()
         return true_shooting_percentage(
-            self.points, self.field_goals_attempted, self.free_throws_attempted
+            points_sum, fga_sum, fta_sum
         )
 
     def get_effective_field_goal_percentage(self):
