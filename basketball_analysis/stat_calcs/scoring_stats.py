@@ -79,3 +79,6 @@ def percentage_of_teams_points_scored(pts, team_pts):
 
 def adjusted_points_per_75():
     pass
+
+def relative_true_shooting():
+    pass

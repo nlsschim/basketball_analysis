@@ -109,25 +109,39 @@ class PlayerSingleSeason:
         Calculate the effective field goal percentage (eFG%) for the player.
         """
 
+        fgm_sum = np.nan_to_num(self.field_goals_made, 0).sum()
+        fga_sum = np.nan_to_num(self.field_goals_attempted, 0).sum()
+        three_p_fgm_sum = np.nan_to_num(self.three_point_field_goals_made, 0).sum()
         return effective_field_goal_percentage(
-            self.field_goals_made,
-            self.field_goals_attempted,
-            self.three_point_field_goals_made,
+            fgm_sum,
+            fga_sum,
+            three_p_fgm_sum 
         )
 
     def get_field_goal_percentage(self):
         """
         Calculate the field goal percentage (FG%) for the player.
         """
-        return field_goal_percentage(self.field_goals_made, self.field_goals_attempted)
+
+        fgm_sum = np.nan_to_num(self.field_goals_made, 0).sum()
+        fga_sum = np.nan_to_num(self.field_goals_attempted, 0).sum()
+        return field_goal_percentage(
+            fgm_sum,
+            fga_sum
+        )
 
     def get_points_per_possession(self):
         """
         Calculate the points per possession (PPP) for the player.
         """
+
+        points_sum = np.nan_to_num(self.points, 0).sum()
+        fga_sum = np.nan_to_num(self.field_goals_attempted, 0).sum()
+        fta_sum = np.nan_to_num(self.free_throws_attempted, 0).sum()
+        tov_sum = np.nan_to_num(self.turnovers, 0).sum()
         return points_per_possession(
-            self.points,
-            self.field_goals_attempted,
-            self.free_throws_attempted,
-            self.turnovers,
+            points_sum,
+            fga_sum,
+            fta_sum,
+            tov_sum
         )

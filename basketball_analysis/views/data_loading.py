@@ -14,6 +14,4 @@ if data_file:
     st.session_state["data_loaded"] = True
     st.write("Data loaded.")
     st.write(st.session_state["data"].head(5))
-
-st.write(st.session_state["data"].head(10))
-    
+        

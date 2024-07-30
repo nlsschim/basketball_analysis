@@ -8,25 +8,25 @@ import pandas as pd
 about_page = st.Page(
     title="About",
     icon="ℹ️",
-    page="views/about.py",
+    page="basketball_analysis/views/about.py",
     default=True
 )
 
 data_page = st.Page(
     title="Data Loading",
-    page="views/data_loading.py",
+    page="basketball_analysis/views/data_loading.py",
     icon="📊",
 )
 
 plot_one_page = st.Page(
     title="Plot One",
-    page="views/plot_one.py",
+    page="basketball_analysis/views/plot_one.py",
     icon="📈",
 )
 
 plot_one_two = st.Page(
     title="Plot Two",
-    page="views/plot_two.py",
+    page="basketball_analysis/views/plot_two.py",
     icon="📈",
 )
 
